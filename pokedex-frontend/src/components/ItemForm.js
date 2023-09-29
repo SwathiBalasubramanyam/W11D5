@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateItem } from '../store/items';
+import { updateItem, createItem } from '../store/items';
 
-const ItemForm = ({ itemId, hideForm }) => {
+const ItemForm = ({ itemId, pokemonId, hideForm }) => {
   let item = useSelector(state => state.items[itemId]);
+  item ||= {};
   const dispatch = useDispatch();
 
   const [happiness, setHappiness] = useState(item.happiness);
@@ -24,8 +25,13 @@ const ItemForm = ({ itemId, hideForm }) => {
       price
     };
 
-    let returnedItem = await dispatch(updateItem(payload));
-
+    let returnedItem; 
+    if (item.id){
+      returnedItem = await dispatch(updateItem(payload)); 
+    } else {
+      returnedItem = await dispatch(createItem(payload, pokemonId)); 
+    }
+    
     if (returnedItem) {
       hideForm();
     }
@@ -61,7 +67,7 @@ const ItemForm = ({ itemId, hideForm }) => {
           value={price}
           onChange={updatePrice}
         />
-        <button type="submit">Update Item</button>
+        <button type="submit">{itemId ? "Update Item" : "Create Item"}</button>
         <button type="button" onClick={handleCancelClick}>Cancel</button>
       </form>
     </section>

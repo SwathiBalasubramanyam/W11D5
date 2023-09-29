@@ -1,12 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loadItems } from "../store/items";
+import { deleteItem, loadItems } from "../store/items";
 
 const PokemonItems = ({ pokemon, setEditItemId }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("pokemon ID from items", pokemon.id)
     dispatch(loadItems(pokemon.id))
   },[])
 
@@ -15,6 +14,9 @@ const PokemonItems = ({ pokemon, setEditItemId }) => {
     return pokemon.items.map(itemId => state.items[itemId]);
   });
 
+  const handleDelete = (itemId) => {
+    dispatch(deleteItem(itemId, pokemon.id))
+  }
 
   if (!items) {
     return null;
@@ -41,7 +43,7 @@ const PokemonItems = ({ pokemon, setEditItemId }) => {
       )}
       {pokemon.captured && (
         <td className="centered">
-          <button>
+          <button onClick={() => handleDelete(item.id)}>
             Delete
           </button>
         </td>

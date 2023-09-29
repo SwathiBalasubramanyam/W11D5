@@ -47,6 +47,30 @@ export const updateItem = (item) => async dispatch => {
   }
 }
 
+export const createItem = (item, pokemonId) => async dispatch => {
+  const response = await fetch(`/api/pokemon/${pokemonId}/items`, {
+    method: 'POST',
+    body: JSON.stringify(item),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  });
+  if(response.ok){
+    const createdItem = await response.json();
+    dispatch(add(createdItem));
+    return createdItem;
+  }
+}
+
+export const deleteItem = (itemId, pokemonId) => async dispatch => {
+  const response = await fetch(`/api/items/${itemId}`, {
+    method: 'DELETE'
+  });
+  await response.json();
+  dispatch(remove(itemId, pokemonId));
+}
+
 const initialState = {};
 
 const itemsReducer = (state = initialState, action) => {

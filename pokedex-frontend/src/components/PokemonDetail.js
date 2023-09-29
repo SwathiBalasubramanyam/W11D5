@@ -12,6 +12,7 @@ const PokemonDetail = () => {
   const pokemon = useSelector(state => state.pokemon[pokemonId]);
   const [showEditPokeForm, setShowEditPokeForm] = useState(false);
   const [editItemId, setEditItemId] = useState(null);
+  const [createItem, setCreateItem] = useState(null);
 
   useEffect(() => {
     setShowEditPokeForm(false);
@@ -25,10 +26,11 @@ const PokemonDetail = () => {
 
   let content = null;
 
-  if (editItemId) {
+  if (editItemId || createItem) {
     content = (
       <ItemForm 
         itemId={editItemId} 
+        pokemonId={pokemonId}
         hideForm={() => setEditItemId(null)} 
       />
     );
@@ -70,7 +72,7 @@ const PokemonDetail = () => {
         <div>
           <h2>
             Items 
-            <button> + </button>
+            <button onClick={() => setCreateItem(true)}> + </button>
           </h2>
           <table>
             <thead>
