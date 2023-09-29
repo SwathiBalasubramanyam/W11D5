@@ -31,6 +31,22 @@ export const loadItems = (pokemonId) => async dispatch => {
   dispatch(load(data, pokemonId));
 }
 
+export const updateItem = (item) => async dispatch => {
+  const response = await fetch(`/api/items/${item.id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(item),
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    }
+  });
+  if(response.ok){
+    const updatedItem = await response.json();
+    dispatch(update(updatedItem));
+    return updatedItem;
+  }
+}
+
 const initialState = {};
 
 const itemsReducer = (state = initialState, action) => {
