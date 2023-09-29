@@ -15,13 +15,13 @@ const ItemForm = ({ itemId, hideForm }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const payload = {
-    //   ...item,
-    //   name,
-    //   happiness,
-    //   price
-    // };
-    
+    const payload = {
+      ...item,
+      name,
+      happiness,
+      price
+    };
+
     let returnedItem;
     if (returnedItem) {
       hideForm();
