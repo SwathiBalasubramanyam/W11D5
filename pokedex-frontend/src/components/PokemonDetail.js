@@ -23,6 +23,8 @@ const PokemonDetail = () => {
   if (!pokemon || !pokemon.moves) {
     return null;
   }
+  
+  
 
   let content = null;
 
@@ -31,7 +33,10 @@ const PokemonDetail = () => {
       <ItemForm 
         itemId={editItemId} 
         pokemonId={pokemonId}
-        hideForm={() => setEditItemId(null)} 
+        hideForm={() => {
+          setEditItemId(null)
+          setCreateItem(null)
+        }} 
       />
     );
   } else if (showEditPokeForm && pokemon.captured) {

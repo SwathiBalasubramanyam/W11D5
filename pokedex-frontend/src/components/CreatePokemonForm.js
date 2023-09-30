@@ -52,9 +52,11 @@ const CreatePokemonForm = ({ hideForm }) => {
 
     let createdPokemon = await dispatch(postPokemon(payload));
 
-    if (createdPokemon) {
+    if (createdPokemon.id) {
       history.push(`/pokemon/${createdPokemon.id}`);
       hideForm();
+    } else {
+      alert(JSON.stringify(createdPokemon.errors));
     }
   };
 

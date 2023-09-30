@@ -60,6 +60,8 @@ export const postPokemon = (pokemon) => async dispatch => {
     const newPokemon = await response.json();
     dispatch(addOnePokemon(newPokemon));
     return newPokemon;
+  } else {
+    return response.json();
   }
 };
 

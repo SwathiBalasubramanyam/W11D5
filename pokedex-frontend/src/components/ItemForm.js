@@ -48,7 +48,7 @@ const ItemForm = ({ itemId, pokemonId, hideForm }) => {
         <input
           type="text"
           placeholder="Name"
-          value={name}
+          value={name || ''}
           onChange={updateName}
         />
         <input
@@ -57,14 +57,14 @@ const ItemForm = ({ itemId, pokemonId, hideForm }) => {
           min="0"
           max="100"
           required
-          value={happiness}
+          value={happiness || ''}
           onChange={updateHappiness}
         />
         <input
           type="number"
           placeholder="Price"
           required
-          value={price}
+          value={price || ''}
           onChange={updatePrice}
         />
         <button type="submit">{itemId ? "Update Item" : "Create Item"}</button>
